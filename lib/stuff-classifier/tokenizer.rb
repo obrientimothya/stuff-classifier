@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 require "lingua/stemmer"
-require "rseg"
 
 class StuffClassifier::Tokenizer
   require  "stuff-classifier/tokenizer/tokenizer_properties"
@@ -53,7 +52,7 @@ class StuffClassifier::Tokenizer
         preprocessing_regexps.each { |regexp,replace_by| line.gsub!(regexp, replace_by) }
       end
 
-      Rseg.segment(line).each do |w|
+      line.split(' ').each do |w|
         next if w == '' || ignore_words.member?(w.downcase)
 
         if stemming? and stemable?(w)
